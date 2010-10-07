@@ -193,7 +193,7 @@ module Maestro
     base_dir.chop! if base_dir =~ /\/$/
     if !File.exist?("#{base_dir}/maestro")
       Dir.mkdir("#{base_dir}/maestro")
-      @logger.progress "Created #{base_dir}/maestro"
+      @logger.info "Created #{base_dir}/maestro"
     end
     if !File.exist?("#{base_dir}/maestro/clouds")
       Dir.mkdir("#{base_dir}/maestro/clouds")
