@@ -186,7 +186,7 @@ module Maestro
         session.loop(60)
 
         # shut off the stdout outputter and only log to the nodes' log files
-        @configurable_nodes.each_pair {|name, node| node.disable_stdout}
+        @configurable_nodes.each_pair {|name, node| node.disable_stdout} unless ENV['VERBOSE']
         os = Maestro::OperatingSystem.create_from_etc_issue(etc_issue)
         os.chef_install_script.each do |cmd|
           session.open_channel do |channel|
@@ -208,7 +208,7 @@ module Maestro
           session.loop(60)
         end
         # turn the stdout outputter back on
-        @configurable_nodes.each_pair {|name, node| node.enable_stdout}
+        @configurable_nodes.each_pair {|name, node| node.enable_stdout} unless ENV['VERBOSE']
         session.close if close_session
       end
 
@@ -246,7 +246,7 @@ module Maestro
           close_session = true
         end
         # shut off the stdout outputter and only log to the nodes' log files
-        @configurable_nodes.each_pair {|name, node| node.disable_stdout}
+        @configurable_nodes.each_pair {|name, node| node.disable_stdout} unless ENV['VERBOSE']
         # clean up existing cookbooks and roles directories if they exist
         cleanup_cmds = 
           ["sudo rm -rf /tmp/chef-solo/cookbooks",
@@ -282,7 +282,7 @@ module Maestro
           session.loop(60)
         end
         # turn the stdout outputter back on
-        @configurable_nodes.each_pair {|name, node| node.enable_stdout}
+        @configurable_nodes.each_pair {|name, node| node.enable_stdout} unless ENV['VERBOSE']
         session.close if close_session
       end
 
